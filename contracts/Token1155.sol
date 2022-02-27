@@ -13,8 +13,6 @@ contract Token1155 is ERC1155 {
         _mint(msg.sender, 2, 10, "");
     }
 
-
-
     /// @notice Get the data of the token
     /// @param tokenId id of the token from where we want to check the data
     /// @dev  get uri QmUuNFzKA2ya3mU8ac2vUJf3ThoqwYB5i24z7t6QNXpveT/{id}.json

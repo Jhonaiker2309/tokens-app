@@ -22,7 +22,7 @@ contract Token721 is ERC721Enumerable ,Ownable {
   mapping(string => mapping(address => bool)) userHasRole;
   
 
-  constructor(address[] initialUsersInWhiteList) ERC721("Warrior Clan NFT", "WCN") {
+  constructor(address[] memory initialUsersInWhiteList) ERC721("Warrior Clan NFT", "WCN") {
     setBaseURI("https://ipfs.io/ipfs/QmUuNFzKA2ya3mU8ac2vUJf3ThoqwYB5i24z7t6QNXpveT");
     setNotRevealedURI("https://ipfs.io/ipfs/QmUuNFzKA2ya3mU8ac2vUJf3ThoqwYB5i24z7t6QNXpveT/unrevealed.json");
     createRole("ADMIN");
@@ -65,8 +65,7 @@ contract Token721 is ERC721Enumerable ,Ownable {
 
     /// @notice Mint the amount of tokens that the user wants
     /// @param _mintAmount amount of tokens that will be minted
-    /// @dev  mint tokens to msg.sender, sum 1 to mapping addressMintedBalance[msg.sender] and set the ownerShip of tokens 
-    /// @return url of the token    
+    /// @dev  mint tokens to msg.sender, sum 1 to mapping addressMintedBalance[msg.sender] and set the ownerShip of tokens  
   function mint(uint256 _mintAmount) public payable {
     require(!paused || userInWhiteList[msg.sender] || userHasRole["ADMIN"][msg.sender] || owner() == msg.sender, "the contract is paused");
     uint256 supply = totalSupply();

@@ -31,9 +31,9 @@ describe("Token721", function() {
         await token.setCost(toWei(1))
         await token.setMaxMintAmount(10000)
         
-        expect (await token.maxAmountOfNftsByUser()).to.equal(100)
-        expect (await token.maxAmountOfNfts()).to.equal(10000)
-        expect (await token.cost()).to.equal(toWei(1)) 
+         expect (await token.maxAmountOfNftsByUser()).to.equal(100)
+         expect (await token.maxAmountOfNfts()).to.equal(10000)
+         expect (await token.cost()).to.equal(toWei(1)) 
 
         })
 
