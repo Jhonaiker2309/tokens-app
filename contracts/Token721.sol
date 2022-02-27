@@ -110,89 +110,78 @@ contract Token721 is ERC721Enumerable ,Ownable {
     }    
   }
 
-    /// @notice Get the data of the token
-    /// @param tokenId id of the token from where we want to check the data
-    /// @dev  get uri QmUuNFzKA2ya3mU8ac2vUJf3ThoqwYB5i24z7t6QNXpveT/{id}.json
-    /// @return url of the token  
+    /// @notice Add user to white list
+    /// @param _user address that will be added to white list
+    /// @dev  add address _user to the mapping userInWhiteList
   function addUserToWhiteList(address _user) public {
       require(owner() == msg.sender || userHasRole["ADMIN"][msg.sender], "You are not allowed to do this action"); 
       userInWhiteList[_user] = true;
   }
 
-    /// @notice Get the data of the token
-    /// @param tokenId id of the token from where we want to check the data
-    /// @dev  get uri QmUuNFzKA2ya3mU8ac2vUJf3ThoqwYB5i24z7t6QNXpveT/{id}.json
-    /// @return url of the token  
+    /// @notice Remove user from white list
+    /// @param _user address that will be removed from white list
+    /// @dev  from address _user from the mapping userInWhiteList
   function removeUserFromWhiteList(address _user) public {
     require(owner() == msg.sender || userHasRole["ADMIN"][msg.sender], "You are not allowed to do this action");
     userInWhiteList[_user] = false;
   }
 
-    /// @notice Get the data of the token
-    /// @param tokenId id of the token from where we want to check the data
-    /// @dev  get uri QmUuNFzKA2ya3mU8ac2vUJf3ThoqwYB5i24z7t6QNXpveT/{id}.json
-    /// @return url of the token  
+    /// @notice Show the data of Nfts
+    /// @dev  set revealed to true
   function reveal() public {
       require(owner() == msg.sender || userHasRole["ADMIN"][msg.sender], "You are not allowed to do this action");
       revealed = true;
   }
 
-    /// @notice Get the data of the token
-    /// @param tokenId id of the token from where we want to check the data
-    /// @dev  get uri QmUuNFzKA2ya3mU8ac2vUJf3ThoqwYB5i24z7t6QNXpveT/{id}.json
-    /// @return url of the token    
+    /// @notice Change the number of Nfts that each user can have
+    /// @param _limit amount of nfts that each user could have
+    /// @dev  change maxAmountOfNftsByUser to _limit
   function setNftPerAddressLimit(uint256 _limit) public {
         require(owner() == msg.sender || userHasRole["ADMIN"][msg.sender], "You are not allowed to do this action");
         maxAmountOfNftsByUser = _limit;
   }
 
-    /// @notice Get the data of the token
-    /// @param tokenId id of the token from where we want to check the data
-    /// @dev  get uri QmUuNFzKA2ya3mU8ac2vUJf3ThoqwYB5i24z7t6QNXpveT/{id}.json
-    /// @return url of the token    
+    /// @notice Change cost of nfts
+    /// @param _newCost new price of the nfts
+    /// @dev  change cost to _newCosts
   function setCost(uint256 _newCost) public {
         require(owner() == msg.sender || userHasRole["ADMIN"][msg.sender], "You are not allowed to do this action");
         cost = _newCost;
   }
 
-    /// @notice Get the data of the token
-    /// @param tokenId id of the token from where we want to check the data
-    /// @dev  get uri QmUuNFzKA2ya3mU8ac2vUJf3ThoqwYB5i24z7t6QNXpveT/{id}.json
-    /// @return url of the token  
-  function setMaxMintAmount(uint256 _newmaxMintAmount) public {
+    /// @notice Set max amount of nfts
+    /// @param _newMaxMintAmount New max amount of nfts
+    /// @dev  change maxAmountOfNfts to _newMaxMintAmount
+  function setMaxMintAmount(uint256 _newMaxMintAmount) public {
     require(owner() == msg.sender || userHasRole["ADMIN"][msg.sender], "You are not allowed to do this action");
-    maxAmountOfNfts = _newmaxMintAmount;
+    maxAmountOfNfts = _newMaxMintAmount;
   }
 
-    /// @notice Get the data of the token
-    /// @param tokenId id of the token from where we want to check the data
-    /// @dev  get uri QmUuNFzKA2ya3mU8ac2vUJf3ThoqwYB5i24z7t6QNXpveT/{id}.json
-    /// @return url of the token  
+    /// @notice Set baseURI for the nfts
+    /// @param _newBaseURI new base uri of the contract
+    /// @dev  change baseURI to _newBaseURI
   function setBaseURI(string memory _newBaseURI) private {
     baseURI = _newBaseURI;
   }
 
-     /// @notice Get the data of the token
-    /// @param tokenId id of the token from where we want to check the data
-    /// @dev  get uri QmUuNFzKA2ya3mU8ac2vUJf3ThoqwYB5i24z7t6QNXpveT/{id}.json
-    /// @return url of the token   
+    /// @notice Set base uri for the nfts
+    /// @param _notRevealedURI new not revealed uri of the contract
+    /// @dev  change notRevealedUri to _notRevealedURI
   function setNotRevealedURI(string memory _notRevealedURI) private {
     notRevealedUri = _notRevealedURI;
   }
 
-    /// @notice Get the data of the token
-    /// @param tokenId id of the token from where we want to check the data
-    /// @dev  get uri QmUuNFzKA2ya3mU8ac2vUJf3ThoqwYB5i24z7t6QNXpveT/{id}.json
-    /// @return url of the token  
+    /// @notice Control if MINTERS can mint or nor
+    /// @param _state controls if users can mint or nor
+    /// @dev  sets the variable paused to _state
   function pause(bool _state) public {
     require(owner() == msg.sender || userHasRole["ADMIN"][msg.sender], "You are not allowed to do this action");
     paused = _state;
   }
 
-    /// @notice Get the data of the token
-    /// @param tokenId id of the token from where we want to check the data
-    /// @dev  get uri QmUuNFzKA2ya3mU8ac2vUJf3ThoqwYB5i24z7t6QNXpveT/{id}.json
-    /// @return url of the token    
+    /// @notice Add an initial list of users to the whitelist and gives them the role MINTER
+    /// @param _users array of addresses that will be added to the whitelist
+    /// @dev  add addresses in address[] users to the whitelist and adds them to the nestedMapping userHasRole["MINTER"][_users[i]] 
   function addInitialUsersToWhiteList(address[] memory _users) private {
     uint numberOfUsers = _users.length;
     for(uint i = 0; i < numberOfUsers; i++){
@@ -201,10 +190,9 @@ contract Token721 is ERC721Enumerable ,Ownable {
     }
   }
 
-    /// @notice Get the data of the token
-    /// @param tokenId id of the token from where we want to check the data
-    /// @dev  get uri QmUuNFzKA2ya3mU8ac2vUJf3ThoqwYB5i24z7t6QNXpveT/{id}.json
-    /// @return url of the token  
+    /// @notice burn token
+    /// @param tokenId id of the token that will be burned
+    /// @dev  call function _burn with the parameter tokenId 
     function burn(uint256 tokenId) public virtual {
         require(ownerByToken[tokenId] == msg.sender, "You are not the owner of this token");
         _burn(tokenId);
@@ -212,18 +200,15 @@ contract Token721 is ERC721Enumerable ,Ownable {
         addressMintedBalance[msg.sender] = addressMintedBalance[msg.sender] - 1;
     }
 
-    /// @notice Get the data of the token
-    /// @param tokenId id of the token from where we want to check the data
-    /// @dev  get uri QmUuNFzKA2ya3mU8ac2vUJf3ThoqwYB5i24z7t6QNXpveT/{id}.json
-    /// @return url of the token   
+    /// @notice The owner withdraws the ether in the contract
+    /// @dev  get send the ether in address(this) to msg.sender
     function withdraw()  public onlyOwner payable {
       payable(msg.sender).transfer(address(this).balance);
     }
 
-    /// @notice Get the data of the token
-    /// @param tokenId id of the token from where we want to check the data
-    /// @dev  get uri QmUuNFzKA2ya3mU8ac2vUJf3ThoqwYB5i24z7t6QNXpveT/{id}.json
-    /// @return url of the token  
+    /// @notice Check amount of ether in smart contract
+    /// @dev  get address(this).balance 
+    /// @return balance of ether of the contract
     function contractBalance() public view onlyOwner returns(uint) {
       return address(this).balance;
 }   
