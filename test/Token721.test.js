@@ -10,7 +10,7 @@ describe("Token721", function() {
     Token721 = await ethers.getContractFactory("Token721");
     
     [owner, address1, address2, address3, address4, address5] = await ethers.getSigners()
-    token = await Token721.deploy();
+    token = await Token721.deploy([]);
   })
 
   describe("check initial states", () => {

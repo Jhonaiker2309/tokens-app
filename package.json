@@ -8,6 +8,11 @@
     "ethers": "^5.5.4",
     "hardhat": "^2.8.4"
   },
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "test": "npx hardhat test",
+    "deploy": "npx hardhat run --network rinkeby scripts/deploy.js"
+  },
   "dependencies": {
     "@openzeppelin/contracts": "^4.5.0"
   }
