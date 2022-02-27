@@ -19,7 +19,23 @@ describe("Token721", function() {
           expect (await token.baseURI()).to.equal("https://ipfs.io/ipfs/QmUuNFzKA2ya3mU8ac2vUJf3ThoqwYB5i24z7t6QNXpveT");
           expect (await token.existingRole("ADMIN")).to.equal(true);
           expect (await token.existingRole("MINTER")).to.equal(true);
-    })
+        })
+
+        it("Check setting functions", async () => {
+        
+        expect (await token.maxAmountOfNftsByUser()).to.equal(10)
+        expect (await token.maxAmountOfNfts()).to.equal(1000)
+        expect (await token.cost()).to.equal(toWei(0.1))
+
+        await token.setNftPerAddressLimit(100)
+        await token.setCost(toWei(1))
+        await token.setMaxMintAmount(10000)
+        
+        expect (await token.maxAmountOfNftsByUser()).to.equal(100)
+        expect (await token.maxAmountOfNfts()).to.equal(10000)
+        expect (await token.cost()).to.equal(toWei(1)) 
+
+        })
 
         it("Check role related functions", async () => {
            
